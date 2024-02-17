@@ -14,7 +14,21 @@
     <body>
         <h1>Meu primeiro site em Flask</h1>
 
-        <p>Agora vamos continuar nosso site</p>
+        <h3>Formulário de Login<h3>
+        {% block form %}
+            <form method="POST">
+                {{ form.csrf_token }}
+
+                    {{  form.email.label()  }}
+                    {{  form.email()  }}
+                    
+                    {{  form.senha.label()  }}
+                    {{  form.senha()  }}
+
+                    {{ form.botao_confirmacao()  }}
+
+            </form>
+        {% endblock %}
     </body>
 {% endblock %}
 </html>
