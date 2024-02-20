@@ -1,0 +1,14 @@
+{% extends "homepage.html" %}
+
+{% block body %}
+    
+    {% include "navbar.html" %}
+
+    <h1>Feed principal</h1>
+
+    {% for foto in fotos %}
+        <a href="{{ url_for('perfil', id_usuario=foto.id_usuario) }}">
+            <img src="{{ url_for('static', filename='fotos_post/{}'.format(foto.imagem)) }}">
+        </a>
+    {% endfor %}
+{% endblock %}

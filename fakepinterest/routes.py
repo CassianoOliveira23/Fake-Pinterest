@@ -7,6 +7,8 @@ import os
 from werkzeug.utils import secure_filename
 
 
+
+
 @app.route("/", methods=["GET", "POST"])
 def homepage():
     form_login = FormLogin()
@@ -16,6 +18,7 @@ def homepage():
             login_user(usuario)
             return redirect(url_for("perfil", id_usuario=usuario.id))    
     return render_template("homepage.html", form=form_login)
+
 
 
 @app.route("/criarconta", methods=["GET", "POST"])
@@ -30,6 +33,7 @@ def criarconta():
         login_user(usuario, remember=True)
         return redirect(url_for("perfil", id_usuario=usuario.id))
     return render_template("criarconta.html", form=form_criarconta)
+
 
 
 @app.route("/perfil/<id_usuario>", methods=["GET", "POST"])
@@ -54,8 +58,17 @@ def perfil(id_usuario):
         return render_template("perfil.html", usuario=id_usuario, form=None)
 
 
+
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
     return redirect(url_for("homepage"))
+
+
+
+@app.route("/feed")
+@login_required
+def feed():
+    fotos = Foto.query.order_by(Foto.data_criacao.desc()).all()
+    return render_template("feed.html", fotos=fotos)
