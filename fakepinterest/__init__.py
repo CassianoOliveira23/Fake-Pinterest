@@ -6,7 +6,7 @@ from flask_bcrypt import Bcrypt
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///comunidade.db"
 app.config["SECRET_KEY"] = "9944a393393d275f3a9e27be64a64ca3"
-app.config["UPLOAD_FOLDER"] = "static/fotos_posts"
+app.config["UPLOAD_FOLDER"] = "static/fotos_post"
 
 database = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
