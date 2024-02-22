@@ -9,21 +9,58 @@
     <body>
         {% include "navbar.html" %}
 
-        <h1>Página de Perfil usuário: {{ usuario.username }}</h1>
-        
-        {% if form %}
-            <form method="POST" enctype="multipart/form-data">
-                {{ form.csrf_token }}
+        <div class="container">
+            {% if form %}
+            
+                <form class="bloco-add-img" method="POST" enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+                    <h2>{{  usuario.username }} - Enviar Foto</h2>
+            
+                    <div class="bloco-arquivo">
+                        <label for="foto" class="botao-arquivo">
+                            Escolher arquivo
+                            {{ form.foto(class="input-arquivo", id="foto") }}
+                        </label>
+                        <span id="imagem-arquivo" class=""></span>
+                    </div>
+            
+                    {{ form.botao_confirmacao(class="botao-login") }}
+                </form>
+            
+            {% else  %}
+                <div class="bloco-add-img">
+                    <h2>{{  usuario.username }} - Ver Perfil</h2>
+                </div>
+            {% endif %}
+            
 
-                {{ form.foto() }}
-                {{ form.botao_confirmacao() }}
-            </form>
-        {% endif %}
+            <div class="conteudo">
+                {% for foto in usuario.fotos %}
+                    <div class="bloco-imagem">
+                        <img src="{{ url_for('static', filename='fotos_post/' + foto.imagem) }}"/>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
 
-    
-        {% for foto in usuario.fotos %}
-            <img src="{{ url_for('static', filename='fotos_post/' + foto.imagem) }}">
-        {% endfor %}
+        <script>
+            let input = document.getElementById("foto");
+            let imagemArquivo = document.getElementById("imagem-arquivo");
+      
+            input.addEventListener("change", () => {
+              let inputImagem = document.querySelector("input[type=file]").files[0];
+      
+              imagemArquivo.classList.add("visivel");
+              imagemArquivo.innerText = inputImagem.name;
+            });
+        </script>
+
     </body>
 {% endblock %}
+
+
+
+
+
+
 
