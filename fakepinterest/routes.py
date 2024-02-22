@@ -55,7 +55,7 @@ def perfil(id_usuario):
     else:
         # vendo o perfil de outra pessoa
         usuario = Usuario.query.get(int(id_usuario))
-        return render_template("perfil.html", usuario=id_usuario, form=None)
+        return render_template("perfil.html", usuario=usuario, form=None)
 
 
 
